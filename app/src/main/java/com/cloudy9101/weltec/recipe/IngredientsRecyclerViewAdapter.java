@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.cloudy9101.weltec.recipe.IngredientsFragment.OnListFragmentInteractionListener;
@@ -54,7 +54,7 @@ public class IngredientsRecyclerViewAdapter extends RecyclerView.Adapter<Ingredi
         public final View mView;
         public IngredientModel mItem;
         public TextView name;
-        public Button delBtn;
+        public ImageButton delBtn;
 
         public ViewHolder(View view) {
             super(view);

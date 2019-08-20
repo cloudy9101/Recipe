@@ -7,4 +7,18 @@
     <string name="add">Add</string>
     <string name="ingredient_placeholder">Ingredient name</string>
     <string name="del">🗑</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Log in</string>
+    <string name="action_sign_in_short">Log in</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="course_code">IT7320 Assignment 2</string>
+    <string name="application_name">Recipe application</string>
+    <string name="logout">Logout</string>
+    <string name="title_about">About</string>
 </resources>

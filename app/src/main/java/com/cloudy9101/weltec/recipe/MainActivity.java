@@ -1,5 +1,6 @@
 package com.cloudy9101.weltec.recipe;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements IngredientsFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements IngredientsFragment.OnListFragmentInteractionListener, LogoutFragment.OnFragmentInteractionListener {
     private Fragment frag;
     BottomNavigationView navView;
 
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements IngredientsFragme
             case R.id.navigation_ingredients:
                 frag = IngredientsFragment.newInstance();
                 break;
+            case R.id.navigation_about:
+                frag = LogoutFragment.newInstance();
+                break;
         }
         if (frag != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -67,5 +71,9 @@ public class MainActivity extends AppCompatActivity implements IngredientsFragme
                 });
                 break;
         }
+    }
+
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

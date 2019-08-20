@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.android.volley.Response;
@@ -23,8 +24,8 @@ import java.util.List;
 public class RecipeListFragment extends Fragment {
     private Context context;
     private TextInputEditText searchText;
-    private Button searchBtn;
-    private Button intelligentBtn;
+    private ImageButton searchBtn;
+    private ImageButton intelligentBtn;
     private ListView listView;
     private ArrayList<RecipeModel> results = new ArrayList<>();
     private RecipeListAdapter adapter;
