@@ -1,5 +1,6 @@
 package com.cloudy9101.weltec.recipe;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements IngredientsFragme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AppDatabase.initDatabase(getApplicationContext());
+
         setContentView(R.layout.activity_main);
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -47,13 +51,20 @@ public class MainActivity extends AppCompatActivity implements IngredientsFragme
         }
     }
 
+    private IngredientModel itemWaitToDelete;
     public void onListFragmentInteraction(IngredientModel item, String action) {
+        itemWaitToDelete = item;
         switch(action) {
             case "del":
-                IngredientModel.delItem(item);
-                if(navView.getSelectedItemId() == R.id.navigation_ingredients) {
-                    ((IngredientsFragment) frag).setupListView();
-                }
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppDatabase.db.ingredientDao().delete(itemWaitToDelete);
+                        if(navView.getSelectedItemId() == R.id.navigation_ingredients) {
+                            ((IngredientsFragment) frag).setupListView();
+                        }
+                    }
+                });
                 break;
         }
     }

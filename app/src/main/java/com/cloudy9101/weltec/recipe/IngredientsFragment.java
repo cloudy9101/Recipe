@@ -1,6 +1,7 @@
 package com.cloudy9101.weltec.recipe;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -12,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -20,10 +24,12 @@ import android.widget.Button;
  */
 public class IngredientsFragment extends Fragment {
 
+    private Context context;
     private OnListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
     private Button addBtn;
     private TextInputEditText ingredientInput;
+    private List<IngredientModel> ingredients;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -49,6 +55,7 @@ public class IngredientsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        context = this.getContext();
         setup(view);
     }
 
@@ -56,24 +63,46 @@ public class IngredientsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.ingredientList);
         addBtn = view.findViewById(R.id.addBtn);
         ingredientInput = view.findViewById(R.id.ingredientInput);
-        IngredientModel.addItem("First");
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(new IngredientsRecyclerViewAdapter(new ArrayList<IngredientModel>(), mListener));
         setupListView();
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-
-                IngredientModel.addItem(ingredientInput.getText().toString());
-                setupListView();
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        IngredientModel im = new IngredientModel(ingredientInput.getText().toString());
+                        AppDatabase.db.ingredientDao().insert(im);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ingredientInput.setText("");
+                            }
+                        });
+                        setupListView();
+                    }
+                });
             }
         });
     }
 
     public void setupListView() {
-        Context context = this.getContext();
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new IngredientsRecyclerViewAdapter(IngredientModel.ITEMS, mListener));
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                ingredients = AppDatabase.db.ingredientDao().getAll();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                        recyclerView.setAdapter(new IngredientsRecyclerViewAdapter(ingredients, mListener));
+                    }
+                });
+            }
+        });
     }
 
     @Override
