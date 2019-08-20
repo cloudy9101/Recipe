@@ -3,6 +3,7 @@
     <string name="title_recipes">Recipes</string>
     <string name="title_ingredients">Ingredients</string>
     <string name="search_btn">🔍</string>
+    <string name="intelligent_btn">💡</string>
     <string name="add">Add</string>
     <string name="ingredient_placeholder">Ingredient name</string>
     <string name="del">🗑</string>

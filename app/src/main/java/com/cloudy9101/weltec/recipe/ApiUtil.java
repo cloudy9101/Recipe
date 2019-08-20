@@ -31,4 +31,21 @@ public class ApiUtil {
         queue.add(stringRequest);
     }
 
+    public static void searchByIngredients(Context context, String ingredients, Response.Listener listener) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=" + apiKey + "&ingredients=" + ingredients + "&number=2";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                listener
+                , new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
 }

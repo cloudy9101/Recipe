@@ -17,7 +17,11 @@ public class RecipeModel {
     }
 
     public String getImage() {
-        return "https://spoonacular.com/recipeImages/" + image;
+        if(image.startsWith("http")) {
+            return image;
+        } else {
+            return "https://spoonacular.com/recipeImages/" + image;
+        }
     }
 
     public Integer getId() {
