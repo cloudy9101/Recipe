@@ -8,8 +8,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IngredientsFragment.OnListFragmentInteractionListener {
     private Fragment frag;
+    BottomNavigationView navView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -25,27 +26,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         selectFragment(navView.getMenu().getItem(0));
     }
 
     private void selectFragment(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.navigation_home:
+            case R.id.navigation_recipes:
                 frag = RecipeListFragment.newInstance();
                 break;
-            case R.id.navigation_dashboard:
-                frag = RecipeListFragment.newInstance();
-                break;
-            case R.id.navigation_notifications:
-                frag = RecipeListFragment.newInstance();
+            case R.id.navigation_ingredients:
+                frag = IngredientsFragment.newInstance();
                 break;
         }
         if (frag != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.container, frag, frag.getTag());
+            ft.replace(R.id.container, frag, frag.getTag());
             ft.commit();
+        }
+    }
+
+    public void onListFragmentInteraction(IngredientModel item, String action) {
+        switch(action) {
+            case "del":
+                IngredientModel.delItem(item);
+                if(navView.getSelectedItemId() == R.id.navigation_ingredients) {
+                    ((IngredientsFragment) frag).setupListView();
+                }
+                break;
         }
     }
 }

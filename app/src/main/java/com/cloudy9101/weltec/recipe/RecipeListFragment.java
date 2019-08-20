@@ -1,6 +1,5 @@
 package com.cloudy9101.weltec.recipe;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -42,8 +41,6 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        System.out.println("Test");
-        view.setBackgroundColor(Color.red(1));
         setup(view);
     }
 
