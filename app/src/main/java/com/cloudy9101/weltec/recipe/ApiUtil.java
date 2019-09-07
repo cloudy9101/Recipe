@@ -10,7 +10,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class ApiUtil {
-    private final static String apiKey = "";
+    private final static String apiKey = "a53d1d9613064b95bcb03b86b6c52377";
 
     public static void search(Context context, String query, Response.Listener listener) {
         // Instantiate the RequestQueue.

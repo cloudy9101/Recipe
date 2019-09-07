@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        inputEmail = findViewById(R.id.username);
+        inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
         progressBar = findViewById(R.id.loading);
         loginBtn = findViewById(R.id.login);
@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(password) || password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password must more than 6 letters!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Password must be more than 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
