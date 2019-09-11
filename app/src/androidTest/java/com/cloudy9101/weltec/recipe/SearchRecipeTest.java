@@ -88,14 +88,14 @@ public class SearchRecipeTest {
         //Click search button
         onView(withId(R.id.searchBtn)).perform(click());
 
-        //Verifies list size is 0
-        onView(withId(R.id.recipeList)).check(matches(listSize(0)));
-
         try {
-            Thread.sleep(10000);
+            Thread.sleep(5000);
         } catch (InterruptedException e){
 
         }
+
+        //Verifies list size is 0
+        onView(withId(R.id.recipeList)).check(matches(listSize(0)));
     }
 
     public static Matcher<View> listSize (final int size){

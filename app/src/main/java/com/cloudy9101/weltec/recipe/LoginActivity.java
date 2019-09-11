@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(password) || password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password must be more than 6 characters!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Password must contain 6 or more characters!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

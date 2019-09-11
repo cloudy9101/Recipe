@@ -12,6 +12,7 @@ import androidx.test.runner.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -64,6 +65,11 @@ public class IngredientsTest {
 
     @Test
     public void testSearchByIngredient(){
+
+        onView(withId(R.id.ingredientInput)).perform(click());
+        onView(withId(R.id.ingredientInput)).perform(typeText("egg"));
+        onView(withId(R.id.addBtn)).perform(click());
+
         //Navigate to 'Recipes' page
         onView(withId(R.id.navigation_recipes)).perform(click());
 
@@ -88,8 +94,10 @@ public class IngredientsTest {
                 .check(matches(withText(containsString("Eggs"))));
     }
 
-    @Test
+    @After
     public void testDeleteIngredient(){
+        onView(withId(R.id.navigation_ingredients)).perform(click());
+
         //Click delete button
         onView(withId(R.id.delBtn)).perform(click());
 

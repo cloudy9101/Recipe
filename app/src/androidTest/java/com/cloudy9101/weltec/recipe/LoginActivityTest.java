@@ -1,7 +1,6 @@
 package com.cloudy9101.weltec.recipe;
 
 import androidx.test.runner.AndroidJUnit4;
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.rule.ActivityTestRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,7 +28,7 @@ public class LoginActivityTest {
     public void testLoginNoEmail(){
 
         //Checking no email has been entered
-        onView(withId(R.id.email)).check(ViewAssertions.matches(withText("")));
+        onView(withId(R.id.email)).check(matches(withText("")));
 
         //Clicking the login button
         onView(withId(R.id.login)).perform(click());
@@ -49,7 +48,7 @@ public class LoginActivityTest {
         onView(withId(R.id.login)).perform(click());
 
         //Checking that the toast message matches text
-        onView(withText("Password must more than 6 letters!"))
+        onView(withText("Password must contain 6 or more characters!"))
                 .inRoot(withDecorView(not(is(loginActivity.getActivity().getWindow().getDecorView()))))
                 .check(matches(isDisplayed()));
     }
@@ -76,7 +75,7 @@ public class LoginActivityTest {
     public void testLoginInvalidPassword(){
 
         //Entering valid email
-        onView(withId(R.id.email)).perform(typeText("johndoea@gmail.com"));
+        onView(withId(R.id.email)).perform(typeText("johndoe@gmail.com"));
 
         //Entering invalid password
         onView(withId(R.id.password)).perform(typeText("pass"));
@@ -85,13 +84,13 @@ public class LoginActivityTest {
         onView(withId(R.id.login)).perform(click());
 
         //Checking that the toast message matches text
-        onView(withText("Password must more than 6 letters!"))
+        onView(withText("Password must contain 6 or more characters!"))
                 .inRoot(withDecorView(not(is(loginActivity.getActivity().getWindow().getDecorView()))))
                 .check(matches(isDisplayed()));
     }
 
     @Test
-    public void testLoginUnregisteredEmailAndPassword() {
+    public void testLoginUnregisteredEmail() {
 
         //Entering valid email
         onView(withId(R.id.email)).perform(typeText("jdoe@gmail.com"));
@@ -106,7 +105,24 @@ public class LoginActivityTest {
         onView(withText("Login failed"))
                 .inRoot(withDecorView(not(is(loginActivity.getActivity().getWindow().getDecorView()))))
                 .check(matches(isDisplayed()));
+    }
 
+    @Test
+    public void testLoginWrongPassword(){
+
+        //Entering valid email
+        onView(withId(R.id.email)).perform(typeText("johndoe@gmail.com"));
+
+        //Entering wrong password
+        onView(withId(R.id.password)).perform(typeText("password1"));
+
+        //Clicking login button
+        onView(withId(R.id.login)).perform(click());
+
+        //Checking that the toast message matches text
+        onView(withText("Login failed"))
+                .inRoot(withDecorView(not(is(loginActivity.getActivity().getWindow().getDecorView()))))
+                .check(matches(isDisplayed()));
     }
 
     @Test

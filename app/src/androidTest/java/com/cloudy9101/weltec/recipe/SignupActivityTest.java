@@ -25,11 +25,12 @@ import static org.hamcrest.CoreMatchers.not;
 
 @RunWith(AndroidJUnit4.class)
 public class SignupActivityTest {
+
     @Rule
     public ActivityTestRule<LoginActivity> loginActivity = new ActivityTestRule(LoginActivity.class);
 
-@Test
-public void testSignupNoEmail(){
+    @Test
+    public void testSignupNoEmail(){
 
         //Checking no email has been entered
         onView(withId(R.id.email)).check(matches(withText("")));
@@ -39,12 +40,12 @@ public void testSignupNoEmail(){
 
         //Checking that the toast message matches text
         onView(withText("Enter email address!"))
-        .inRoot(withDecorView(not(is(loginActivity.getActivity().getWindow().getDecorView()))))
-        .check(matches(isDisplayed()));
+                .inRoot(withDecorView(not(is(loginActivity.getActivity().getWindow().getDecorView()))))
+                .check(matches(isDisplayed()));
         }
 
-@Test
-public void testSignupNoPassword(){
+     @Test
+     public void testSignupNoPassword(){
         //Entering a valid email address
         onView(withId(R.id.email)).perform(typeText("johndoe@gmail.com"));
 
@@ -57,8 +58,8 @@ public void testSignupNoPassword(){
         .check(matches(isDisplayed()));
         }
 
-@Test
-public void testSignupInvalidEmail(){
+        @Test
+        public void testSignupInvalidEmail(){
 
         //Entering invalid email
         onView(withId(R.id.email)).perform(typeText("john"));
@@ -75,8 +76,8 @@ public void testSignupInvalidEmail(){
         .check(matches(isDisplayed()));
         }
 
-@Test
-public void testSignupInvalidPassword(){
+        @Test
+        public void testSignupInvalidPassword(){
 
         //Entering valid email
         onView(withId(R.id.email)).perform(typeText("johndoe@gmail.com"));
